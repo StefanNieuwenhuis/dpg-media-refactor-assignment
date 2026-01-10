@@ -16,6 +16,8 @@ EXPIRED_DEGRADE = 2
 AGED_BRIE_INCREASE = 1
 AGED_BRIE_EXPIRED_INCREASE = 2
 
+SULFURAS_QUALITY = 80
+
 # --------------------------------------------------
 # Test helper functions
 # --------------------------------------------------
@@ -91,13 +93,26 @@ class TestGildedRose:
 
         def test_aged_brie_after_sell_date_increases_twice_as_fast(self) -> None:
             """
-            This case surprised me since the description in GuildedRoseRequirements was quite vague on this. 
+            This case surprised me since the description in GuildedRoseRequirements was quite vague on this.
             """
             item = Item("Aged Brie", sell_in=0, quality=10)
 
             updated = update(item)
 
             assert updated.quality == 10 + AGED_BRIE_EXPIRED_INCREASE
+
+    class TestLegendaryItems:
+        def test_sulfuras_never_changes(self) -> None:
+            item = Item(
+                "Sulfuras, Hand of Ragnaros",
+                sell_in=0,
+                quality=SULFURAS_QUALITY,
+            )
+
+            updated = update(item)
+
+            assert updated.sell_in == 0
+            assert updated.quality == SULFURAS_QUALITY
 
 
 # --------------------------------------------------
