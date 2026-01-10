@@ -185,9 +185,3 @@ class TestGildedRose:
             updated = update(item)
 
             assert updated.quality == MAX_QUALITY
-
-# --------------------------------------------------
-# Test Runner
-# --------------------------------------------------
-if __name__ == "__main__":
-    pytest.main([__file__, "-v", "--tb=short"])
