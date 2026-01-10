@@ -13,6 +13,9 @@ MAX_QUALITY = 50
 NORMAL_DEGRADE = 1
 EXPIRED_DEGRADE = 2
 
+AGED_BRIE_INCREASE = 1
+AGED_BRIE_EXPIRED_INCREASE = 2
+
 # --------------------------------------------------
 # Test helper functions
 # --------------------------------------------------
@@ -77,6 +80,25 @@ class TestGildedRose:
             updated = update(item)
 
             assert updated.sell_in == 0
+
+    class TestAgedBrie:
+        def test_aged_brie_increases_quality(self) -> None:
+            item = Item("Aged Brie", sell_in=5, quality=10)
+
+            updated = update(item)
+
+            assert updated.quality == 10 + AGED_BRIE_INCREASE
+
+        def test_aged_brie_after_sell_date_increases_twice_as_fast(self) -> None:
+            """
+            This case surprised me since the description in GuildedRoseRequirements was quite vague on this. 
+            """
+            item = Item("Aged Brie", sell_in=0, quality=10)
+
+            updated = update(item)
+
+            assert updated.quality == 10 + AGED_BRIE_EXPIRED_INCREASE
+
 
 # --------------------------------------------------
 # Test Runner
