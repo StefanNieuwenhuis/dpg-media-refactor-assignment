@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from gilded_rose import GildedRose, Item
+from gilded_rose import GildedRose, Item, clamp_quality
 
 # --------------------------------------------------
 # Test Constants
@@ -43,6 +43,20 @@ def update(item: Item) -> Item:
 # --------------------------------------------------
 
 class TestGildedRose:
+    class TestHelperFunctions:
+        def test_clamp_quality_within_range(self) -> None:
+            assert clamp_quality(25) == 25
+
+        def test_clamp_quality_below_zero(self):
+            assert clamp_quality(-5) == 0
+
+        def test_clamp_quality_above_fifty(self):
+            assert clamp_quality(75) == MAX_QUALITY
+
+        def test_clamp_quality_boundaries(self):
+            assert clamp_quality(MIN_QUALITY) == MIN_QUALITY
+            assert clamp_quality(MAX_QUALITY) == MAX_QUALITY
+
     class TestGenerics:
         def test_quality_is_never_negative(self) -> None:
             item = Item("Standard Item", sell_in=5, quality=MIN_QUALITY)
