@@ -1,5 +1,20 @@
 # -*- coding: utf-8 -*-
 
+# --------------------------------------------------
+# Constants
+# --------------------------------------------------
+
+MIN_QUALITY = 0
+MAX_QUALITY = 50
+
+
+# --------------------------------------------------
+# Helper functions
+# --------------------------------------------------
+def clamp_quality(quality: int) -> int:
+    """Clamp quality between MIN_QUALITY and MAX_QUALITY."""
+    return max(MIN_QUALITY, min(MAX_QUALITY, quality))
+
 class GildedRose(object):
 
     def __init__(self, items):
