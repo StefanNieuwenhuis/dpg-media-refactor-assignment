@@ -77,3 +77,9 @@ class TestGildedRose:
             updated = update(item)
 
             assert updated.sell_in == 0
+
+# --------------------------------------------------
+# Test Runner
+# --------------------------------------------------
+if __name__ == "__main__":
+    pytest.main([__file__, "-v", "--tb=short"])
