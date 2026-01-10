@@ -18,6 +18,10 @@ AGED_BRIE_EXPIRED_INCREASE = 2
 
 SULFURAS_QUALITY = 80
 
+BACKSTAGE_INCREASE_NORMAL = 1
+BACKSTAGE_INCREASE_MEDIUM = 2
+BACKSTAGE_INCREASE_HIGH = 3
+
 # --------------------------------------------------
 # Test helper functions
 # --------------------------------------------------
@@ -37,6 +41,7 @@ def update(item: Item) -> Item:
 # --------------------------------------------------
 # Unit Tests
 # --------------------------------------------------
+
 class TestGildedRose:
     class TestGenerics:
         def test_quality_is_never_negative(self) -> None:
@@ -114,6 +119,72 @@ class TestGildedRose:
             assert updated.sell_in == 0
             assert updated.quality == SULFURAS_QUALITY
 
+    class TestBackstagePass:
+        def test_backstage_pass_increases_quality(self) -> None:
+            item = Item(
+                "Backstage passes to a TAFKAL80ETC concert",
+                sell_in=15,
+                quality=20,
+            )
+
+            updated = update(item)
+
+            assert updated.quality == 20 + BACKSTAGE_INCREASE_NORMAL
+
+        def test_backstage_pass_sell_in_decrements(self) -> None:
+            item = Item(
+                "Backstage passes to a TAFKAL80ETC concert",
+                sell_in=5,
+                quality=20,
+            )
+
+            updated = update(item)
+
+            assert updated.sell_in == 4
+
+        def test_backstage_pass_10_days_or_less(self) -> None:
+            item = Item(
+                "Backstage passes to a TAFKAL80ETC concert",
+                sell_in=10,
+                quality=20,
+            )
+
+            updated = update(item)
+
+            assert updated.quality == 20 + BACKSTAGE_INCREASE_MEDIUM
+
+        def test_backstage_pass_5_days_or_less(self) -> None:
+            item = Item(
+                "Backstage passes to a TAFKAL80ETC concert",
+                sell_in=5,
+                quality=20,
+            )
+
+            updated = update(item)
+
+            assert updated.quality == 20 + BACKSTAGE_INCREASE_HIGH
+
+        def test_backstage_pass_after_concert(self) -> None:
+            item = Item(
+                "Backstage passes to a TAFKAL80ETC concert",
+                sell_in=0,
+                quality=20,
+            )
+
+            updated = update(item)
+
+            assert updated.quality == MIN_QUALITY
+
+        def test_backstage_pass_quality_capped_at_maximum(self) -> None:
+            item = Item(
+                "Backstage passes to a TAFKAL80ETC concert",
+                sell_in=5,
+                quality=MAX_QUALITY - 1,
+            )
+
+            updated = update(item)
+
+            assert updated.quality == MAX_QUALITY
 
 # --------------------------------------------------
 # Test Runner
