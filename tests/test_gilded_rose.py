@@ -10,6 +10,9 @@ from gilded_rose import GildedRose, Item
 MIN_QUALITY = 0
 MAX_QUALITY = 50
 
+NORMAL_DEGRADE = 1
+EXPIRED_DEGRADE = 2
+
 # --------------------------------------------------
 # Test helper functions
 # --------------------------------------------------
@@ -43,3 +46,34 @@ class TestGildedRose:
             updated = update(item)
 
             assert updated.quality == MAX_QUALITY
+
+    class TestStandardItems:
+        def test_standard_item_before_sell_date(self) -> None:
+            item = Item("+5 Dexterity Vest", sell_in=10, quality=20)
+
+            updated = update(item)
+
+            assert updated.sell_in == 9
+            assert updated.quality == 20 - NORMAL_DEGRADE
+
+        def test_standard_item_on_sell_date(self) -> None:
+            item = Item("+5 Dexterity Vest", sell_in=0, quality=20)
+
+            updated = update(item)
+
+            assert updated.sell_in == -1
+            assert updated.quality == 20 - EXPIRED_DEGRADE
+
+        def test_standard_item_after_sell_date(self) -> None:
+            item = Item("+5 Dexterity Vest", sell_in=-5, quality=20)
+
+            updated = update(item)
+
+            assert updated.quality == 20 - EXPIRED_DEGRADE
+
+        def test_standard_item_sell_in_decrements(self) -> None:
+            item = Item("Standard item", sell_in=1, quality=10)
+
+            updated = update(item)
+
+            assert updated.sell_in == 0
