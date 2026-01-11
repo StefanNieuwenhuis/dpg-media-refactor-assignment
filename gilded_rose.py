@@ -1,20 +1,5 @@
 # -*- coding: utf-8 -*-
 
-# --------------------------------------------------
-# Constants
-# --------------------------------------------------
-
-MIN_QUALITY = 0
-MAX_QUALITY = 50
-
-
-# --------------------------------------------------
-# Helper functions
-# --------------------------------------------------
-def clamp_quality(quality: int) -> int:
-    """Clamp quality between MIN_QUALITY and MAX_QUALITY."""
-    return max(MIN_QUALITY, min(MAX_QUALITY, quality))
-
 class GildedRose(object):
 
     def __init__(self, items):
@@ -25,17 +10,17 @@ class GildedRose(object):
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
                 if item.quality > 0:
                     if item.name != "Sulfuras, Hand of Ragnaros":
-                        item.quality = item.quality - 1
+                        item.quality = clamp_quality(item.quality - 1)
             else:
                 if item.quality < 50:
                     item.quality = item.quality + 1
                     if item.name == "Backstage passes to a TAFKAL80ETC concert":
                         if item.sell_in < 11:
                             if item.quality < 50:
-                                item.quality = item.quality + 1
+                                item.quality = clamp_quality(item.quality + 1)
                         if item.sell_in < 6:
                             if item.quality < 50:
-                                item.quality = item.quality + 1
+                                item.quality = clamp_quality(item.quality + 1)
             if item.name != "Sulfuras, Hand of Ragnaros":
                 item.sell_in = item.sell_in - 1
             if item.sell_in < 0:
@@ -43,12 +28,12 @@ class GildedRose(object):
                     if item.name != "Backstage passes to a TAFKAL80ETC concert":
                         if item.quality > 0:
                             if item.name != "Sulfuras, Hand of Ragnaros":
-                                item.quality = item.quality - 1
+                                item.quality = clamp_quality(item.quality - 1)
                     else:
-                        item.quality = item.quality - item.quality
+                        item.quality = clamp_quality(item.quality - item.quality)
                 else:
                     if item.quality < 50:
-                        item.quality = item.quality + 1
+                        item.quality = clamp_quality(item.quality + 1)
 
 
 class Item:
