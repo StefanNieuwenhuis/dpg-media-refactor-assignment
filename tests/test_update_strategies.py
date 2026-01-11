@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-import pytest
 
-from constants import MAX_QUALITY, SULFURAS_QUALITY, AGED_BRIE, SULFURAS, BACKSTAGE_PASS
-from models import Item
-from update_strategies import update_standard_item, update_aged_brie, update_sulfuras, update_backstage_pass, \
+from src.constants import MAX_QUALITY, SULFURAS_QUALITY, AGED_BRIE, SULFURAS, BACKSTAGE_PASS
+from src.models import Item
+from src.update_strategies import update_standard_item, update_aged_brie, update_sulfuras, update_backstage_pass, \
     get_update_strategy
 
 
