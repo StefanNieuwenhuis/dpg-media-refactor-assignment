@@ -1,5 +1,5 @@
 from constants import MIN_QUALITY, MAX_QUALITY
-from gilded_rose import Item
+from models import Item
 
 
 def clamp_quality(quality: int) -> int:
