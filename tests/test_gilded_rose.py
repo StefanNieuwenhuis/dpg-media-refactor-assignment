@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from gilded_rose import GildedRose, Item
+from constants import MIN_QUALITY, MAX_QUALITY
+from models import Item
+from gilded_rose import GildedRose
 
 # --------------------------------------------------
 # Test Constants
 # --------------------------------------------------
-
-MIN_QUALITY = 0
-MAX_QUALITY = 50
 
 NORMAL_DEGRADE = 1
 EXPIRED_DEGRADE = 2
