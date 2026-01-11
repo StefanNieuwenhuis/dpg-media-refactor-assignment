@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
 
-from constants import MIN_QUALITY, MAX_QUALITY
+from constants import MIN_QUALITY, MAX_QUALITY, SULFURAS_QUALITY
 from models import Item
 from gilded_rose import GildedRose
 
@@ -14,8 +14,6 @@ EXPIRED_DEGRADE = 2
 
 AGED_BRIE_INCREASE = 1
 AGED_BRIE_EXPIRED_INCREASE = 2
-
-SULFURAS_QUALITY = 80
 
 BACKSTAGE_INCREASE_NORMAL = 1
 BACKSTAGE_INCREASE_MEDIUM = 2
