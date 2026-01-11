@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from helpers import clamp_quality
+from helpers import clamp_quality, is_expired
+
 
 class GildedRose(object):
 
@@ -24,7 +25,7 @@ class GildedRose(object):
                                 item.quality = clamp_quality(item.quality + 1)
             if item.name != "Sulfuras, Hand of Ragnaros":
                 item.sell_in = item.sell_in - 1
-            if item.sell_in < 0:
+            if is_expired(item.sell_in):
                 if item.name != "Aged Brie":
                     if item.name != "Backstage passes to a TAFKAL80ETC concert":
                         if item.quality > 0:
