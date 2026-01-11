@@ -9,7 +9,7 @@ PYTHON := python
 PIP := $(PYTHON) -m pip
 
 # Project directories
-SRC_DIR := .
+SRC_DIR := src
 TEST_DIR := tests
 
 # Virtual environment
