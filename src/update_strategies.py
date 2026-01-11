@@ -1,7 +1,7 @@
 from dataclasses import replace
 from typing import Callable
 
-from constants import MIN_QUALITY, AGED_BRIE, BACKSTAGE_PASS, SULFURAS
+from constants import MIN_QUALITY, AGED_BRIE, BACKSTAGE_PASS, SULFURAS, CONJURED_PREFIX, CONJURED_DEGRADATION
 from helpers import adjust_quality, decrease_sell_in, is_expired
 from models import Item
 
@@ -39,13 +39,25 @@ def update_backstage_pass(item: Item) -> Item:
 
     return adjust_quality(item, quality_delta)
 
+def update_conjured_item(item: Item) -> Item:
+    """Update strategy for conjured items"""
+    item = decrease_sell_in(item)
+
+    quality_delta = -(CONJURED_DEGRADATION * 2) if is_expired(item.sell_in) else -CONJURED_DEGRADATION
+
+    return adjust_quality(item, quality_delta)
+
 def get_update_strategy(item: Item) -> Callable[[Item], Item]:
     """Apply the correct update strategy based on an item's name"""
+    if item.name.startswith(CONJURED_PREFIX):
+        return update_conjured_item
+
     return {
         AGED_BRIE: update_aged_brie,
         BACKSTAGE_PASS: update_backstage_pass,
         SULFURAS: update_sulfuras,
     }.get(item.name, update_standard_item)
+
 
 def update_item(item: Item) -> Item:
     """Select and apply the appropriate strategy"""
