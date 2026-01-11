@@ -31,11 +31,10 @@ def update(item: Item) -> Item:
     :param item: (Item) Item added to inventory and to be updated
     :return: updated Item
     """
+    gilded_rose = GildedRose([item])
+    gilded_rose.update_quality()
 
-    items = [item]
-    GildedRose(items).update_quality()
-
-    return items[0]
+    return gilded_rose.items[0]
 
 # --------------------------------------------------
 # Unit Tests
