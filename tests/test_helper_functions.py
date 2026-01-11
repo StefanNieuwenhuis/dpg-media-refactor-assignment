@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-import pytest
 
-from models import Item
-from constants import MAX_QUALITY, MIN_QUALITY
-from helpers import clamp_quality, adjust_quality
+from src.models import Item
+from src.constants import MAX_QUALITY, MIN_QUALITY
+from src.helpers import clamp_quality, adjust_quality
 
 
 class TestHelperFunctions:

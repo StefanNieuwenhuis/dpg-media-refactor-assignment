@@ -1,7 +1,7 @@
 import pytest
 
-from models import Item
-from helpers import decrease_sell_in, adjust_quality
+from src.models import Item
+from src.helpers import decrease_sell_in, adjust_quality
 
 
 class TestImmutability:

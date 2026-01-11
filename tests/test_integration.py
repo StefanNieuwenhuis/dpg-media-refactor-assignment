@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
-import pytest
 
-from models import Item
-from constants import MIN_QUALITY, MAX_QUALITY, SULFURAS_QUALITY, AGED_BRIE, SULFURAS, BACKSTAGE_PASS, ELIXER_MONGOOSE, \
+from src.models import Item
+from src.constants import MIN_QUALITY, MAX_QUALITY, SULFURAS_QUALITY, AGED_BRIE, SULFURAS, BACKSTAGE_PASS, ELIXER_MONGOOSE, \
     DEXTERITY_VEST
-from gilded_rose import GildedRose
+from src.gilded_rose import GildedRose
 
 
 class TestIntegration:
