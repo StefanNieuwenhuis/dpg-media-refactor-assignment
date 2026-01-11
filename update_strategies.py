@@ -40,6 +40,7 @@ def update_backstage_pass(item: Item) -> Item:
     return adjust_quality(item, quality_delta)
 
 def get_update_strategy(item: Item) -> Callable[[Item], Item]:
+    """Apply the correct update strategy based on an item's name"""
     return {
         "Aged Brie": update_aged_brie,
         "Backstage passes to a TAFKAL80ETC concert": update_backstage_pass,
