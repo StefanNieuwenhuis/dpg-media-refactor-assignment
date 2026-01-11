@@ -50,6 +50,16 @@ class TestUpdateStrategies:
             assert updated.quality == SULFURAS_QUALITY
             assert updated is item
 
+        def test_sulfuras_idempotency(self) -> None:
+            item = Item("Sulfuras, Hand of Ragnaros", sell_in=0, quality=SULFURAS_QUALITY)
+
+            updated_1 = update_sulfuras(item)
+            updated_2 = update_sulfuras(updated_1)
+            updated_3 = update_sulfuras(updated_2)
+
+            assert updated_3.quality == SULFURAS_QUALITY
+            assert updated_3.sell_in == 0
+
     class TestBackStagePageUpdateStrategy:
         def test_update_backstage_pass_far_from_concert(self) -> None:
             item = Item("Backstage passes to a TAFKAL80ETC concert", sell_in=15, quality=10)
