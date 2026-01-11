@@ -14,6 +14,7 @@ class TestIntegration:
             Item(name=ELIXER_MONGOOSE, sell_in=5, quality=7),
             Item(name=SULFURAS, sell_in=0, quality=80),
             Item(name=BACKSTAGE_PASS, sell_in=15, quality=20),
+            Item("Conjured Mana Cake", 5, 25),
         ]
 
         gilded_rose = GildedRose(items)
@@ -24,6 +25,7 @@ class TestIntegration:
         assert gilded_rose.items[2].quality == 6
         assert gilded_rose.items[3].quality == 80
         assert gilded_rose.items[4].quality == 21
+        assert gilded_rose.items[5].quality == 23
 
     def test_30_day_simulation(self) -> None:
         items = [
@@ -31,6 +33,7 @@ class TestIntegration:
             Item(name=AGED_BRIE, sell_in=5, quality=10),
             Item(name=SULFURAS, sell_in=0, quality=80),
             Item(name=BACKSTAGE_PASS, sell_in=15, quality=20),
+            Item("Conjured Mana Cake", -1, 25),
         ]
 
         days = 30
@@ -51,3 +54,6 @@ class TestIntegration:
 
         # Backstage pass quality should be zero after a concert
         assert gilded_rose.items[3].quality == MIN_QUALITY
+
+        # Conjured items quality should degrade to minimum quality (i.e. zero)
+        assert gilded_rose.items[4].quality == MIN_QUALITY

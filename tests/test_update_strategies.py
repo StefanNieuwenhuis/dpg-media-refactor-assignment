@@ -3,7 +3,7 @@
 from src.constants import MAX_QUALITY, SULFURAS_QUALITY, AGED_BRIE, SULFURAS, BACKSTAGE_PASS
 from src.models import Item
 from src.update_strategies import update_standard_item, update_aged_brie, update_sulfuras, update_backstage_pass, \
-    get_update_strategy
+    get_update_strategy, update_conjured_item
 
 
 class TestUpdateStrategies:
@@ -88,6 +88,19 @@ class TestUpdateStrategies:
             assert updated.sell_in == -1
             assert updated.quality == 0
 
+    class TestUpdateConjuredUpdateStrategy:
+        def test_update_conjured_item_before_expiry(self):
+            item = Item("Conjured Mana Cake", sell_in=5, quality=10)
+            updated = update_conjured_item(item)
+
+            assert updated.quality == 8
+
+        def test_update_conjured_item_after_expiry(self):
+            item = Item("Conjured Mana Cake", sell_in=-1, quality=10)
+            updated = update_conjured_item(item)
+
+            assert updated.quality == 6
+
     class TestUpdateStrategySelector:
         def test_get_strategy_standard_item(self):
             item = Item(name="Standard Item", sell_in=5, quality=10)
@@ -108,3 +121,12 @@ class TestUpdateStrategies:
             item = Item(name=BACKSTAGE_PASS, sell_in=15, quality=10)
             strategy = get_update_strategy(item)
             assert strategy == update_backstage_pass
+
+        def test_get_strategy_conjured(self):
+            item_1 = Item("Conjured Mana Cake", sell_in=3, quality=10)
+            strategy_1 = get_update_strategy(item_1)
+            assert strategy_1 == update_conjured_item
+
+            item_2 = Item("Conjured Health Potion", sell_in=5, quality=8)
+            strategy_2 = get_update_strategy(item_2)
+            assert strategy_2 == update_conjured_item
