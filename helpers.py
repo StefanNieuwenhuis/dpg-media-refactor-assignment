@@ -1,3 +1,5 @@
+from dataclasses import replace
+
 from constants import MIN_QUALITY, MAX_QUALITY
 from models import Item
 
@@ -10,6 +12,6 @@ def is_expired(sell_in: int) -> bool:
     """Check if the sell_in date has passed"""
     return sell_in <= 0
 
-def decrease_sell_in(item: Item) -> None:
+def decrease_sell_in(item: Item) -> Item:
     """Decrease sell in by 1"""
-    item.sell_in -= 1
+    return replace(item, sell_in=item.sell_in - 1)
