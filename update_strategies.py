@@ -1,7 +1,7 @@
 from dataclasses import replace
 from typing import Callable
 
-from constants import MIN_QUALITY
+from constants import MIN_QUALITY, AGED_BRIE, BACKSTAGE_PASS, SULFURAS
 from helpers import adjust_quality, decrease_sell_in, is_expired
 from models import Item
 
@@ -42,9 +42,9 @@ def update_backstage_pass(item: Item) -> Item:
 def get_update_strategy(item: Item) -> Callable[[Item], Item]:
     """Apply the correct update strategy based on an item's name"""
     return {
-        "Aged Brie": update_aged_brie,
-        "Backstage passes to a TAFKAL80ETC concert": update_backstage_pass,
-        "Sulfuras, Hand of Ragnaros": update_sulfuras,
+        AGED_BRIE: update_aged_brie,
+        BACKSTAGE_PASS: update_backstage_pass,
+        SULFURAS: update_sulfuras,
     }.get(item.name, update_standard_item)
 
 def update_item(item: Item) -> Item:
