@@ -2,7 +2,8 @@
 import pytest
 
 from constants import MIN_QUALITY, MAX_QUALITY
-from gilded_rose import GildedRose, Item
+from models import Item
+from gilded_rose import GildedRose
 
 # --------------------------------------------------
 # Test Constants
