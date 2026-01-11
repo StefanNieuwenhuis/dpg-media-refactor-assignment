@@ -1,6 +1,5 @@
 import pytest
-
-from gilded_rose import clamp_quality
+from helpers import clamp_quality
 from constants import MAX_QUALITY, MIN_QUALITY
 
 class TestHelperFunctions:
