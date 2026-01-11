@@ -1,3 +1,17 @@
-__pycache__
+# editor
 .idea
+
+# python virtual environment
 .venv
+
+# python cache files
+__pycache__
+.pyc
+.pyo
+.pyd
+
+# (py)test (coverage) artefacts
+.coverage
+.pytest_cache
+.tox
+htmlcov
