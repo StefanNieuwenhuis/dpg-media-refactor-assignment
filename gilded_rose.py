@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from helpers import clamp_quality, is_expired, decrease_sell_in
+from helpers import is_expired, decrease_sell_in, adjust_quality
 
 
 class GildedRose(object):
@@ -8,31 +8,33 @@ class GildedRose(object):
         self.items = items
 
     def update_quality(self):
-        for item in self.items:
+        for i, item in enumerate(self.items):
             if item.name != "Aged Brie" and item.name != "Backstage passes to a TAFKAL80ETC concert":
                 if item.quality > 0:
                     if item.name != "Sulfuras, Hand of Ragnaros":
-                        item.quality = clamp_quality(item.quality - 1)
+                        item = adjust_quality(item, -1)
             else:
                 if item.quality < 50:
-                    item.quality = item.quality + 1
+                    item = adjust_quality(item, 1)
                     if item.name == "Backstage passes to a TAFKAL80ETC concert":
                         if item.sell_in < 11:
                             if item.quality < 50:
-                                item.quality = clamp_quality(item.quality + 1)
+                                item = adjust_quality(item, 1)
                         if item.sell_in < 6:
                             if item.quality < 50:
-                                item.quality = clamp_quality(item.quality + 1)
+                                item = adjust_quality(item, 1)
             if item.name != "Sulfuras, Hand of Ragnaros":
-                decrease_sell_in(item)
+                item = decrease_sell_in(item)
             if is_expired(item.sell_in):
                 if item.name != "Aged Brie":
                     if item.name != "Backstage passes to a TAFKAL80ETC concert":
                         if item.quality > 0:
                             if item.name != "Sulfuras, Hand of Ragnaros":
-                                item.quality = clamp_quality(item.quality - 1)
+                                item = adjust_quality(item, -1)
                     else:
-                        item.quality = clamp_quality(item.quality - item.quality)
+                        item = adjust_quality(item, -item.quality)
                 else:
                     if item.quality < 50:
-                        item.quality = clamp_quality(item.quality + 1)
+                        item = adjust_quality(item, 1)
+
+            self.items[i] = item
