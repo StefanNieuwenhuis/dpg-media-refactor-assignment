@@ -46,3 +46,9 @@ def get_update_strategy(item: Item) -> Callable[[Item], Item]:
         "Backstage passes to a TAFKAL80ETC concert": update_backstage_pass,
         "Sulfuras, Hand of Ragnaros": update_sulfuras,
     }.get(item.name, update_standard_item)
+
+def update_item(item: Item) -> Item:
+    """Select and apply the appropriate strategy"""
+    strategy = get_update_strategy(item)
+
+    return strategy(item)
