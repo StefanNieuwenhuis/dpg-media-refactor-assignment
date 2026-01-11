@@ -1,4 +1,6 @@
 from constants import MIN_QUALITY, MAX_QUALITY
+from gilded_rose import Item
+
 
 def clamp_quality(quality: int) -> int:
     """Clamp quality between MIN_QUALITY and MAX_QUALITY"""
@@ -7,3 +9,6 @@ def clamp_quality(quality: int) -> int:
 def is_expired(sell_in: int) -> bool:
     """Check if the sell_in date has passed"""
     return sell_in <= 0
+
+def decrement_sell_in(item: Item) -> None:
+    item.sell_in -= 1
