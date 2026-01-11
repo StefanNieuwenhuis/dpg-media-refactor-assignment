@@ -11,4 +11,5 @@ def is_expired(sell_in: int) -> bool:
     return sell_in <= 0
 
 def decrement_sell_in(item: Item) -> None:
+    """Decrement sell in by 1"""
     item.sell_in -= 1
