@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from helpers import clamp_quality
 
 class GildedRose(object):
 
