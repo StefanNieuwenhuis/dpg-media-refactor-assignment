@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-
-from update_strategies import get_update_strategy
+from update_strategies import update_item
 
 
 class GildedRose(object):
@@ -9,6 +8,4 @@ class GildedRose(object):
         self.items = items
 
     def update_quality(self):
-        for i, item in enumerate(self.items):
-            strategy = get_update_strategy(item)
-            self.items[i] = strategy(item)
+        self.items = list(map(update_item, self.items))
