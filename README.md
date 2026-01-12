@@ -60,6 +60,8 @@ I also polished the code to make it shine, and more comprehensible by, for examp
 
 The true test of any refactoring is: How easy is it to extend? Adding Conjured Items is the perfect test! Adding them in the original code meant adding conditionals everywhere, but in the refactored version, it's as easy as adding a new strategy function, and updating the strategy selector. Add some (unit) tests, and DONE! While adding this new item category, I felt very confident, and this was backed by all the tests that all passed.
 
+# Running the code
+
 ## Prerequisites
 
 ### System requirements
