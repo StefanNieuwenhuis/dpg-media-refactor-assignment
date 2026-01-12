@@ -20,6 +20,8 @@ The first phase wasn't about changing anything; it was about creating a safety n
 
 The complexity of the code revealed itself when `sell_in` and `quality` changed. For example, when `sell_in=-1` four different conditionals are activated, and Aged Brie increases quality, but only if `quality < 50`, and faster after expiry.
 
+Another eye-opener for me was that Aged Brie Quality increased twice as fast after expiry, since this wasn't clear from the description, nor the code.
+
 
 ### Phase 2: Extracting Primitives
 
